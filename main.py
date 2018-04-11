@@ -5,4 +5,4 @@ from selenium.webdriver.support import expected_conditions as EC
 
 driver = webdriver.Firefox()
 
-driver.get("https://openprofession.ru/")
+driver.get("uni.urfu.ru")
