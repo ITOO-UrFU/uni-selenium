@@ -48,18 +48,17 @@ for file in os.listdir(files_folder_name):
         ws = wb.get_sheet_by_name(wb.get_sheet_names()[0])
         result = []
         for row in ws.iter_rows():
-            current_row = row[0].row
-            if (current_row > 1):
-                person = {
-                    "sex": ws["A"+str(current_row)].value,
-                    "first_name": ws["B" + str(current_row)].value,
-                    "second_name": ws["C" + str(current_row)].value,
-                    "last_name": ws["D" + str(current_row)].value,
-                    "organization": ws["E" + str(current_row)].value,
-                    "position": ws["F" + str(current_row)].value
-                }
-                print(person)
-                result.append(person)
+            current_row = row[0].row + 1 # за счет этого не считываем первую строку
+            person = {
+                "sex": ws["A"+str(current_row)].value,
+                "first_name": ws["B" + str(current_row)].value,
+                "second_name": ws["C" + str(current_row)].value,
+                "last_name": ws["D" + str(current_row)].value,
+                "organization": ws["E" + str(current_row)].value,
+                "position": ws["F" + str(current_row)].value
+            }
+            print(person)
+            result.append(person)
 
 # driver.get("https://uni.urfu.ru/fx/")
 # wait_by_id('login',10).send_keys('n.v.ignatchenko@urfu.ru')
