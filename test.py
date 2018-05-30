@@ -37,7 +37,7 @@ def button_clicked():
     wait_by_classname('movie-parts-list',10).find_elements_by_tag_name('tr')[1].find_elements_by_tag_name('td')[2].click()
     wait_by_classname('external-btn', 10).click()
     print(driver.title)
-    #time.sleep(10)
+    time.sleep(10)
     driver.switch_to.window(driver.window_handles[1])
     WebDriverWait(driver, 10).until(lambda d: d.title != "")
     print(driver.title)
