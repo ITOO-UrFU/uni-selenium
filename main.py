@@ -5,8 +5,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import time
+import openpyxl
 
-driver = webdriver.Firefox()
+driver = webdriver.Firefox(executable_path='C:\\PROJECTS\\uni-selenium\\geckodriver.exe')
 driver.implicitly_wait(1)
 
 
