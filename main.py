@@ -1,14 +1,14 @@
+import os
+from os.path import isfile, join
+import time
+import openpyxl
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
-
-import os
-from os.path import isfile, join
-import time
-import openpyxl
 
 # driver = webdriver.Firefox(executable_path='C:\\PROJECTS\\uni-selenium\\geckodriver.exe')
 # driver.implicitly_wait(1)
@@ -40,29 +40,30 @@ def wait_by_name(selector, seconds=10):
     )
     return elements
 
-files_folder_name = "input"
 
-for file in os.listdir(files_folder_name):
-    if file.endswith(".xlsx"):
-        wb = openpyxl.load_workbook(join(files_folder_name, file))
-        ws = wb.get_sheet_by_name(wb.get_sheet_names()[0])
-        result = []
-        for row in ws.iter_rows():
-            current_row = row[0].row
-            person = {
-                "sex": ws["A"+str(current_row)].value,
-                "first_name": ws["B" + str(current_row)].value,
-                "second_name": ws["C" + str(current_row)].value,
-                "last_name": ws["D" + str(current_row)].value,
-                "organization": ws["E" + str(current_row)].value,
-                "position": ws["F" + str(current_row)].value
-            }
-            if not None in person.values():
-                if current_row > 1:
-                    result.append(person)
-                    print(person)
-            else:
-                print("Error: 'None' in field: ", person)
+def get_person_list():
+    files_folder_name = "input"
+    for file in os.listdir(files_folder_name):
+        if file.endswith(".xlsx"):
+            wb = openpyxl.load_workbook(join(files_folder_name, file))
+            ws = wb.get_sheet_by_name(wb.get_sheet_names()[0])
+            result = []
+            for row in ws.iter_rows():
+                current_row = row[0].row
+                person = {
+                    "sex": ws["A"+str(current_row)].value,
+                    "first_name": ws["B" + str(current_row)].value,
+                    "second_name": ws["C" + str(current_row)].value,
+                    "last_name": ws["D" + str(current_row)].value,
+                    "organization": ws["E" + str(current_row)].value,
+                    "position": ws["F" + str(current_row)].value
+                }
+                if not None in person.values():
+                    if current_row > 1:
+                        result.append(person)
+                        print(person)
+                else:
+                    print("Error: 'None' in field: ", person)
 
 # driver.get("https://uni.urfu.ru/fx/")
 # wait_by_id('login',10).send_keys('n.v.ignatchenko@urfu.ru')
