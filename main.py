@@ -48,7 +48,7 @@ for file in os.listdir(files_folder_name):
         ws = wb.get_sheet_by_name(wb.get_sheet_names()[0])
         result = []
         for row in ws.iter_rows():
-            current_row = row[0].row + 1 # за счет этого не считываем первую строку
+            current_row = row[0].row
             person = {
                 "sex": ws["A"+str(current_row)].value,
                 "first_name": ws["B" + str(current_row)].value,
@@ -57,8 +57,12 @@ for file in os.listdir(files_folder_name):
                 "organization": ws["E" + str(current_row)].value,
                 "position": ws["F" + str(current_row)].value
             }
-            print(person)
-            result.append(person)
+            if not None in person.values():
+                if current_row > 1:
+                    result.append(person)
+                    print(person)
+            else:
+                print("Error: 'None' in field: ", person)
 
 # driver.get("https://uni.urfu.ru/fx/")
 # wait_by_id('login',10).send_keys('n.v.ignatchenko@urfu.ru')
